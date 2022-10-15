@@ -79,7 +79,7 @@ func Output(globals *model.Globals, param string) (err error) {
 			return err
 		}
 
-		err = ioutil.WriteFile(fmt.Sprintf("%s/%s.bin", param, tab.HeaderType), writer.Bytes(), 0666)
+		err = ioutil.WriteFile(fmt.Sprintf("%s/%s.bytes", param, tab.HeaderType), writer.Bytes(), 0666)
 
 		if err != nil {
 			return err
