@@ -63,9 +63,9 @@ func (self *luaPrinter) Run(g *Globals) *Stream {
 	// local tab = {
 	stream.Printf("}\n\n")
 
-	if !genLuaIndexCode(stream, g.CombineStruct) {
-		return stream
-	}
+	// if !genLuaIndexCode(stream, g.CombineStruct) {
+	// 	return stream
+	// }
 
 	// 生成枚举
 	if !genLuaEnumCode(g, stream, g.FileDescriptor) {
@@ -81,11 +81,44 @@ func printTableLua(g *Globals, stream *Stream, tab *model.Table) bool {
 
 	stream.Printf("	%s = {\n", tab.LocalFD.Name)
 
+	// 检查是否有索引配置（主键）- 参考genLuaIndexCode的实现
+	var primaryKeyField string
+	hasIndex := false
+
+	// 从全局CombineStruct中找到当前表格对应的字段描述符
+	for _, fd := range g.CombineStruct.Fields {
+		if fd.Name == tab.LocalFD.Name && fd.Complex != nil && len(fd.Complex.Indexes) > 0 {
+			hasIndex = true
+			primaryKeyField = fd.Complex.Indexes[0].Name // 使用第一个索引作为主键
+			break
+		}
+	}
+
 	// 遍历每一行
 	for rIndex, r := range tab.Recs {
 
-		// 每一行开始
-		stream.Printf("		{ ")
+		var primaryKeyValue string
+
+		// 如果有主键，先提取主键值
+		if hasIndex {
+			for _, node := range r.Nodes {
+				if node.Name == primaryKeyField {
+					if node.Type == model.FieldType_String {
+						primaryKeyValue = fmt.Sprintf("\"%s\"", node.Child[0].Value)
+					} else {
+						primaryKeyValue = node.Child[0].Value
+					}
+					break
+				}
+			}
+		}
+
+		// 每一行开始 - 根据是否有主键决定格式
+		if hasIndex {
+			stream.Printf("		[%s] = { ", primaryKeyValue)
+		} else {
+			stream.Printf("		{ ")
+		}
 
 		// 遍历每一列
 		for rootFieldIndex, node := range r.Nodes {
