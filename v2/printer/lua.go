@@ -105,6 +105,8 @@ func printTableLua(g *Globals, stream *Stream, tab *model.Table) bool {
 				if node.Name == primaryKeyField {
 					if node.Type == model.FieldType_String {
 						primaryKeyValue = fmt.Sprintf("\"%s\"", node.Child[0].Value)
+					} else if node.Type == model.FieldType_Enum {
+						primaryKeyValue = fmt.Sprintf("%d", node.Child[0].EnumValue)
 					} else {
 						primaryKeyValue = node.Child[0].Value
 					}
