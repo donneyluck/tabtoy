@@ -19,7 +19,7 @@ func init() {
 		Globals_CombineNameLost:                               "[TT301] Globals: Please specify 'combinename' params",
 		Globals_PackageNameDiff:                               "[TT302] Globals: Keep all type in same package",
 		Globals_TableNameDuplicated:                           "[TT303] Globals: Duplicate table name",
-		Globals_DuplicateTypeName:                             "[TT304] Globals: Duplicate type name( table name ?)",
+		Globals_DuplicateTypeName:                             "[TT304] Globals: Duplicate type name",
 		File_TypeSheetKeepSingleton:                           "[TT401] File: Type sheet only need ONE in a file",
 		File_TypeSheetNotFound:                                "[TT402] File: @Types sheet not found",
 		DataSheet_ValueConvertError:                           "[TT501] DataSheet: Cell value convert error",

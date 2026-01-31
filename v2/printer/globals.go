@@ -112,7 +112,12 @@ func (self *Globals) AddTypes(localFD *model.FileDescriptor) bool {
 	// 将行定义结构也添加到文件中
 	for _, d := range localFD.Descriptors {
 		if !self.FileDescriptor.Add(d) {
-			log.Errorf("%s, %s", i18n.String(i18n.Globals_DuplicateTypeName), d.Name)
+			existingDesc := self.FileDescriptor.DescriptorByName[d.Name]
+			existingFile := ""
+			if existingDesc != nil && existingDesc.File != nil {
+				existingFile = existingDesc.File.SourceFileName
+			}
+			log.Errorf("%s, %s (table: %s, file: %s) 与已存在的 (file: %s) 冲突", i18n.String(i18n.Globals_DuplicateTypeName), d.Name, localFD.Name, localFD.SourceFileName, existingFile)
 			return false
 		}
 	}

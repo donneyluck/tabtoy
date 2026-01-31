@@ -163,6 +163,7 @@ func NewFile(filename string, cacheDir string) (f *File, fromCache bool) {
 		LocalFD:       model.NewFileDescriptor(),
 		FileName:      filename,
 	}
+	self.LocalFD.SourceFileName = filename
 
 	if cacheDir != "" {
 		cache := util.NewTableCache(filename, cacheDir)

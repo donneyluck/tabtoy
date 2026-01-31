@@ -2,6 +2,7 @@ package model
 
 type FileDescriptor struct {
 	Name             string
+	SourceFileName   string // 源文件名（xlsx/xlsm文件路径）
 	DescriptorByName map[string]*Descriptor
 	Descriptors      []*Descriptor
 

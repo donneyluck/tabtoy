@@ -19,7 +19,7 @@ func init() {
 		Globals_CombineNameLost:                               "[TT301] 合并: 请在参数中添加 'combinename' 指明合并配置名",
 		Globals_PackageNameDiff:                               "[TT302] 合并: 所有表中的@Types中的包名(Package)请保持一致",
 		Globals_TableNameDuplicated:                           "[TT303] 合并: 表名(TableName)重复",
-		Globals_DuplicateTypeName:                             "[TT304] 合并: 重复的类型名(表名?)",
+		Globals_DuplicateTypeName:                             "[TT304] 合并: 重复的类型名",
 		File_TypeSheetKeepSingleton:                           "[TT401] 文件: 类型表在一个表中只能有一份",
 		File_TypeSheetNotFound:                                "[TT402] 文件: 类型表(@Types)没有找到",
 		DataSheet_ValueConvertError:                           "[TT501] 数据表: 单元格转换错误",
